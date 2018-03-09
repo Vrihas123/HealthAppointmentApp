@@ -1,4 +1,4 @@
-package com.example.vrihas.healthapp;
+package com.example.vrihas.healthapp.SignUp.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,8 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.vrihas.healthapp.Home.HomeActivity;
+import com.example.vrihas.healthapp.Login.view.LoginActivity;
+import com.example.vrihas.healthapp.R;
+import com.example.vrihas.healthapp.helper.SharedPrefs;
 import com.example.vrihas.healthapp.patientDatabase.DatabaseHelperPatient;
 import com.example.vrihas.healthapp.patientDatabase.PatientContact;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -23,13 +30,14 @@ public class SignUpActivity extends AppCompatActivity {
     private TextInputLayout inputLayoutSignName,inputLayoutSignEmail,inputLayoutSignPassword,inputLayoutSignRetypePassword;
     private Button btn_login,btn_signUp;
     private String name,email,password,retypePassword;
+    private SharedPrefs sharedPrefs;
     DatabaseHelperPatient helperPatient = new DatabaseHelperPatient(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
+        sharedPrefs = new SharedPrefs(this);
         inputLayoutSignName = (TextInputLayout) findViewById(R.id.input_layout_signup_name);
         inputLayoutSignEmail = (TextInputLayout) findViewById(R.id.input_layout_signup_email);
         inputLayoutSignPassword = (TextInputLayout) findViewById(R.id.input_layout_signup_password);
@@ -44,7 +52,6 @@ public class SignUpActivity extends AppCompatActivity {
         inputSignName.addTextChangedListener(new MyTextWatcher(inputSignName));
         inputSignEmail.addTextChangedListener(new MyTextWatcher(inputSignEmail));
         inputSignPassword.addTextChangedListener(new MyTextWatcher(inputSignPassword));
-        inputSignRetypePassword.addTextChangedListener(new MyTextWatcher(inputSignRetypePassword));
 
         btn_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,9 +63,18 @@ public class SignUpActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
-                startActivity(i);
-                finish();
+
+                if (sharedPrefs.isLoggedIn()){
+                    Toast.makeText(SignUpActivity.this,"Already Logged In !!Welcome!!",Toast.LENGTH_LONG).show();
+                    Intent i =new Intent(SignUpActivity.this, HomeActivity.class);
+                    startActivity(i);
+                    finish();
+                }else{
+                    Intent i = new Intent(SignUpActivity.this,LoginActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+
             }
         });
     }
@@ -104,6 +120,10 @@ public class SignUpActivity extends AppCompatActivity {
         email = inputSignEmail.getText().toString().trim();
         if (email.isEmpty()){
             inputLayoutSignEmail.setError(getString(R.string.err_msg_email));
+            requestFocus(inputSignEmail);
+            return false;
+        }else if(emailInvalid(email)) {
+            inputLayoutSignEmail.setError("Entered email is not a valid email");
             requestFocus(inputSignEmail);
             return false;
         }else {
@@ -155,6 +175,19 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
+    public boolean emailInvalid(String email) {
+        Pattern pattern;
+        Matcher matcher;
+
+        final String EMAIL_PATTERN =
+                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        boolean a = matcher.matches();
+        return !a;
+    }
+
     private class MyTextWatcher implements TextWatcher {
 
         private View view;
@@ -180,10 +213,6 @@ public class SignUpActivity extends AppCompatActivity {
                 case R.id.input_signup_password:
                     validatePassword();
                     break;
-                case R.id.input_signup_retypePassword:
-                    validateRetypePassword();
-                    break;
-
             }
         }
     }

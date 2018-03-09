@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#3E2723">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="8dp"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/doctorName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="name of doctor"
+                android:textColor="#000000"
+                android:textSize="22dp"
+                android:background="#4DD0E1"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Appointment Timings"
+                android:textSize="16dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:textColor="#000000"
+                />
+
+            <LinearLayout
+                android:id="@+id/layout_slot1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="#4CAF50">
+                <TextView
+                    android:id="@+id/txt_slot1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Available time 1"
+                    android:textSize="16dp"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    />
+                <Button
+                    android:id="@+id/btn_slot_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:background="#2979FF"
+                    android:textColor="#FFFFFF"
+                    android:text="Book Now"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_slot2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="#4CAF50">
+                <TextView
+                    android:id="@+id/txt_slot2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Available time 2"
+                    android:textSize="16dp"
+                    android:textColor="#FFFFFF"
+                    />
+                <Button
+                    android:id="@+id/btn_slot_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:background="#2979FF"
+                    android:textColor="#FFFFFF"
+                    android:text="Book Now"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_slot3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="#4CAF50">
+                <TextView
+                    android:id="@+id/txt_slot3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Available time 3"
+                    android:textSize="16dp"
+                    android:textColor="#FFFFFF"
+                    />
+                <Button
+                    android:id="@+id/btn_slot_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:background="#2979FF"
+                    android:textColor="#FFFFFF"
+                    android:text="Book Now"
+                    />
+            </LinearLayout>
+        <Button
+            android:id="@+id/btn_remove_booking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel Appointments"
+            android:textColor="#FFFFFF"
+            android:background="#B71C1C"
+            android:visibility="gone"
+            />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

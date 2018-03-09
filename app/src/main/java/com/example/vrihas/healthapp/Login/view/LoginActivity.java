@@ -1,4 +1,4 @@
-package com.example.vrihas.healthapp;
+package com.example.vrihas.healthapp.Login.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,13 +14,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.vrihas.healthapp.Home.HomeActivity;
+import com.example.vrihas.healthapp.R;
+import com.example.vrihas.healthapp.SignUp.view.SignUpActivity;
+import com.example.vrihas.healthapp.helper.SharedPrefs;
 import com.example.vrihas.healthapp.patientDatabase.DatabaseHelperPatient;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText inputLoginName,inputLoginPassword;
     private TextInputLayout inputLayoutLoginName,inputLayoutLoginPassword;
-    private Button btn_login;
+    private Button btn_login,btn_backToSignUp;
+    private SharedPrefs sharedPrefs;
     private String name,password, valPassword, valName;
     DatabaseHelperPatient helper = new DatabaseHelperPatient(this);
 
@@ -28,13 +36,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        sharedPrefs = new SharedPrefs(this);
         inputLayoutLoginName = (TextInputLayout) findViewById(R.id.input_layout_login_name);
         inputLayoutLoginPassword = (TextInputLayout) findViewById(R.id.input_layout_login_password);
         inputLoginName = (EditText) findViewById(R.id.input_login_name);
         inputLoginPassword = (EditText) findViewById(R.id.input_login_password);
         btn_login = (Button) findViewById(R.id.btn_confirm_login);
+        btn_backToSignUp = (Button) findViewById(R.id.btn_back_sign);
 
+        btn_backToSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         inputLoginName.addTextChangedListener(new MyTextWatcher(inputLoginName));
         inputLoginPassword.addTextChangedListener(new MyTextWatcher(inputLoginPassword));
@@ -47,9 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void proceed_confirm_login(){
-        submit();
-    }
 
     public void submit(){
         if (!validateName()){
@@ -61,11 +75,15 @@ public class LoginActivity extends AppCompatActivity {
         valPassword = helper.searchPass(name);
         if (password.equals(valPassword)){
             Toast.makeText(this,"Login Successfull",Toast.LENGTH_LONG).show();
+            sharedPrefs.setLogin(true);
             Intent ii = new Intent(LoginActivity.this,HomeActivity.class);
             startActivity(ii);
             finish();
         }
-        Toast.makeText(this,"Credentials doest not match",Toast.LENGTH_LONG).show();
+        else{
+            Toast.makeText(this,"Credentials doest not match",Toast.LENGTH_LONG).show();
+        }
+
 
     }
 
@@ -106,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
+
 
     private class MyTextWatcher implements TextWatcher {
 

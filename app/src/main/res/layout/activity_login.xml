@@ -4,7 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vrihas.healthapp.LoginActivity">
+    tools:context="com.example.vrihas.healthapp.Login.view.LoginActivity">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#FFEB3B">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:textSize="28dp"
+            android:textSize="30dp"
             android:layout_marginTop="20dp"
             android:textAlignment="center"
             android:textColor="#000000"/>
@@ -59,8 +64,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:background="@color/colorPrimary"/>
+            android:textColor="#FFFFFF"
+            android:background="#2979FF"/>
+
+        <Button
+            android:id="@+id/btn_back_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back to sign up"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:background="#2979FF"/>
+
 
         </LinearLayout>
     </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

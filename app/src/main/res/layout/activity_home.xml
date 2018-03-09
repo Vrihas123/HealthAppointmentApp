@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.vrihas.healthapp.HomeActivity">
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="com.example.vrihas.healthapp.Home.HomeActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/reycler_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/login_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#3E2723"
+            android:text="List of Doctors"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:textSize="28dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_doctor_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/log_out_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#3E2723"
+        android:elevation="2dp"
+        android:layout_weight="0"
+        android:text="Log out"
+        android:textColor="#FFFFFF" />
+</LinearLayout>
